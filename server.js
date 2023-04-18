@@ -24,11 +24,35 @@ app.listen(PORT, () => console.log(`yay connecting to server ${PORT}`));
 //2nd arg - callback - will execute when that endpoint is hit
 // 2 params, request, response
 
-app.get('/weather', (request, response) => {
-  const lat = request.query.lat;
-  const lon = request.query.lon;
-  const searchQuery = request.query.searchQuery;
+app.get('/weather', (request, response, next) => {
+  try {
+    // const lat = request.query.lat;
+    // const lon = request.query.lon;
+    let searchQuery = request.query.searchQuery;
+
+
+
+    let cityName = weatherData.find(city => city.city_name === searchQuery);
+
+    let dataToSend = cityName.data.map(day => new Forecast(day));
+
+    response.status(200).send(dataToSend);
+
+
+  } catch (error) {
+    console.log(error.message);
+    next(error.message);
+  }
 });
+
+class Forecast {
+  constructor(obj) {
+    this.date = obj.valid_date;
+    this.description = obj.weather.description;
+  }
+}
+
+
 
 // app.get('/', (request, response) => {
 //   response.status(200).send('welcome to server');
@@ -44,11 +68,11 @@ app.get('/weather', (request, response) => {
 //CATCHALL endpoint should be last defined
 
 app.get('*', (request, response) => {
-  response.status(404).send('page does not exist');
+    response.status(404).send('page does not exist');
 });
 
 
 app.use((error, request, response, next) => {
-  console.log(error.message);
-  response.status(500).send(error.message);
+    console.log(error.message);
+    response.status(500).send(error.message);
 });
