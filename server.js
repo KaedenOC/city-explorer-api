@@ -36,7 +36,7 @@ app.get('/weather', (request, response, next) => {
 
     let dataToSend = cityName.data.map(day => new Forecast(day));
 
-    response.status(200).send(dataToSend);
+    response.status(200).send(dataToSend); //array of objects for each day
 
 
   } catch (error) {
@@ -68,11 +68,11 @@ class Forecast {
 //CATCHALL endpoint should be last defined
 
 app.get('*', (request, response) => {
-    response.status(404).send('page does not exist');
+  response.status(404).send('page does not exist');
 });
 
 
 app.use((error, request, response, next) => {
-    console.log(error.message);
-    response.status(500).send(error.message);
+  console.log(error.message);
+  response.status(500).send(error.message);
 });
