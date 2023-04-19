@@ -56,16 +56,9 @@ class Forecast {
 
 
 
-// app.get('/', (request, response) => {
-//   response.status(200).send('welcome to server');
-// });
 
-// app.get('/hello', (request, response) => {
-//   let firstName = request.query.firstName;
-//   let lastName = request.query.lastName;
 
-//   response.status(200).send(`Hello ${firstName} ${lastName}`);
-// });
+
 
 //CATCHALL endpoint should be last defined
 
