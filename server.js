@@ -36,7 +36,9 @@ app.get('/weather', (request, response, next) => {
 
     let dataToSend = cityName.data.map(day => new Forecast(day));
 
-    response.status(200).send(dataToSend); //array of objects for each day being sent to client
+    console.log(dataToSend);
+
+    response.status(200).send(dataToSend);
 
 
   } catch (error) {
