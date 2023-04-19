@@ -4,7 +4,7 @@ const axios = require('axios');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-let weatherData = require('./data/weather.json');
+// let weatherData = require('./data/weather.json');
 // console.log(weatherData);
 
 
@@ -25,19 +25,20 @@ app.listen(PORT, () => console.log(`yay connecting to server ${PORT}`));
 //2nd arg - callback - will execute when that endpoint is hit
 // 2 params, request, response
 
-app.get('/weather', (request, response, next) => {
+app.get('/weather', async (request, response, next) => {
   try {
-    // const lat = request.query.lat;
-    // const lon = request.query.lon;
-    let searchQuery = request.query.searchQuery;
+    let lat = request.query.lat;
+    let lon = request.query.lon;
+    // let searchQuery = request.query.searchQuery;
+
+    let weatherUrl = `http://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`;
+
+    let weatherData = await axios.get(weatherUrl);
 
 
+    let dataToSend = weatherData.data.data.map(day => new Forecast(day));
 
-    let cityName = weatherData.find(city => city.city_name === searchQuery);
-
-    let dataToSend = cityName.data.map(day => new Forecast(day));
-
-    console.log(dataToSend);
+    // console.log(dataToSend);
 
     response.status(200).send(dataToSend);
 
@@ -60,6 +61,14 @@ class Forecast {
 // TODO: ACCEPT OR DEFINE MY QUERIES -> /weather?searchQuery=cityName
 
 // TODO: BUILD OUT MY URL TO PASS TO AXIOS -> REQUIRE AXIOS AT TOP
+
+// TODO: STORE AXIOS DATA IN A VARIABLE
+
+// TODO: TAKE RESULT FROM AXIOS AND GROOM IT WITH MY CLASS
+
+// TODO: GROOMED DATA AND SEND IT IN THE RESPONSE
+
+// TODO: BUILD MOVIE CLASS
 
 
 
