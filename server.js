@@ -1,5 +1,6 @@
 'use strict';
 
+const axios = require('axios');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
@@ -54,7 +55,11 @@ class Forecast {
   }
 }
 
+// TODO: BUILD AN ENDPOINT THAT WILL CALL OUT TO AN API
 
+// TODO: ACCEPT OR DEFINE MY QUERIES -> /weather?searchQuery=cityName
+
+// TODO: BUILD OUT MY URL TO PASS TO AXIOS -> REQUIRE AXIOS AT TOP
 
 
 
