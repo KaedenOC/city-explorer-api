@@ -55,3 +55,13 @@ Start time: 2:48pm
 Finish time: 4:55pm
 
 Actual time needed to complete:
+
+Name of feature: See info about movies related to the city I searched, so that I can learn more about the destination. (backend)
+
+Estimate of time needed to complete:
+
+Start time: 5:00pm
+
+Finish time: 6:35pm
+
+Actual time needed to complete:
