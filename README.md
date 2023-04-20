@@ -36,14 +36,32 @@ Finish time: 1:36pm
 
 Actual time needed to complete:
 
-
-
 Name of feature: As a user of City Explorer, I want to see weather info for the city I searched, so that I know how to pack for an upcoming trip.
 
 Estimate of time needed to complete:
 
 Start time: 1:45pm
 
-Finish time: 9:05pm (not complete)
+Finish time: 9:05pm
+
+Actual time needed to complete:
+
+Name of feature: Weather info for the city I searched, so that I know how to pack for an upcoming trip.
+
+Estimate of time needed to complete:
+
+Start time: 2:48pm
+
+Finish time: 4:55pm
+
+Actual time needed to complete:
+
+Name of feature: See info about movies related to the city I searched, so that I can learn more about the destination. (backend)
+
+Estimate of time needed to complete:
+
+Start time: 5:00pm
+
+Finish time: 6:35pm
 
 Actual time needed to complete:

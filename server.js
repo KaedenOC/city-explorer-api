@@ -1,9 +1,10 @@
 'use strict';
 
+const axios = require('axios');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-let weatherData = require('./data/weather.json');
+// let weatherData = require('./data/weather.json');
 // console.log(weatherData);
 
 
@@ -24,19 +25,20 @@ app.listen(PORT, () => console.log(`yay connecting to server ${PORT}`));
 //2nd arg - callback - will execute when that endpoint is hit
 // 2 params, request, response
 
-app.get('/weather', (request, response, next) => {
+app.get('/weather', async (request, response, next) => {
   try {
-    // const lat = request.query.lat;
-    // const lon = request.query.lon;
-    let searchQuery = request.query.searchQuery;
+    let lat = request.query.lat;
+    let lon = request.query.lon;
+    // let searchQuery = request.query.searchQuery;
+
+    let weatherUrl = `http://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lat=${lat}&lon=${lon}`;
+
+    let weatherData = await axios.get(weatherUrl);
 
 
+    let dataToSend = weatherData.data.data.map(day => new Forecast(day));
 
-    let cityName = weatherData.find(city => city.city_name === searchQuery);
-
-    let dataToSend = cityName.data.map(day => new Forecast(day));
-
-    console.log(dataToSend);
+    // console.log(dataToSend);
 
     response.status(200).send(dataToSend);
 
@@ -54,18 +56,47 @@ class Forecast {
   }
 }
 
+// TODO: BUILD AN ENDPOINT THAT WILL CALL OUT TO AN API
+
+app.get('/movies', async (request, response, next) => {
+  try {
+    // TODO: ACCEPT OR DEFINE MY QUERIES -> /weather?city=VALUE
+    let myCity = request.query.city;
+
+    // TODO: BUILD OUT MY URL TO PASS TO AXIOS -> REQUIRE AXIOS AT TOP
+    let movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=1&include_adult=false&query=${myCity}`;
+
+    // TODO: STORE AXIOS DATA IN A VARIABLE
+    let moviesFromAxios = await axios.get(movieUrl);
+
+    // TODO: TAKE RESULT FROM AXIOS AND GROOM IT WITH MY CLASS
+    let dataToSend = moviesFromAxios.data.results.map(obj => new Movie(obj));
+
+    // TODO: GROOMED DATA AND SEND IT IN THE RESPONSE
+    response.status(200).send(dataToSend);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// TODO: BUILD MOVIE CLASS
+
+class Movie {
+  constructor(movieObj) {
+    this.title = movieObj.title;
+    this.imgURL = movieObj.poster_path;
+    this.overView = movieObj.overview;
+  }
+}
 
 
-// app.get('/', (request, response) => {
-//   response.status(200).send('welcome to server');
-// });
 
-// app.get('/hello', (request, response) => {
-//   let firstName = request.query.firstName;
-//   let lastName = request.query.lastName;
 
-//   response.status(200).send(`Hello ${firstName} ${lastName}`);
-// });
+
+
+
+
+
 
 //CATCHALL endpoint should be last defined
 
