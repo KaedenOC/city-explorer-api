@@ -75,3 +75,13 @@ Start time: 1:35pm
 Finish time: 1:54pm
 
 Actual time needed to complete:
+
+Name of feature: I want the application to work with recent results, so that I can see info without the app doing unnecessary API calls.
+
+Estimate of time needed to complete:
+
+Start time: 1:35pm
+
+Finish time: 2:40pm
+
+Actual time needed to complete:
